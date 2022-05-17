@@ -15,7 +15,7 @@ const Metronome = () => {
     setInitialValues({bpm});
   }
 
-    return(
+  return(
     <div className="metronome">
       <div className="bpm-slider">
         <div>{initialValues.bpm} BPM</div>
