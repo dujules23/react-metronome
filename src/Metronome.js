@@ -17,9 +17,44 @@ const Metronome = () => {
     click2: new Audio (click2)
   })
 
+  const playClick = () => {
+    const { count, beatsPerMeasure } = initialValues
+
+    // The first beat will have a different sound than the others 
+    if (count % beatsPerMeasure === 0) {
+      audio.click2.play();
+    } else {
+      audio.click1.play();
+    }
+
+    //Keeps track of what beat we're on
+    setInitialValues(state => ({
+      count: (state.count + 1) % state.beatsPerMeasure
+    }));
+  };
+
   const startStop = () => {
-    audio.click1.play();
-  }
+    if (initialValues.playing) {
+      clearInterval(initialValues.timer);
+      
+      setInitialValues({
+        playing: false
+      })
+    } else {
+      initialValues.timer = setInterval(
+        playClick,
+        (60 / initialValues.bpm) * 1000
+      );
+      setInitialValues({
+        count: 0,
+        playing: true
+      },
+      playClick
+      );
+    }
+  };
+
+
 
   // change handler for bpm slider
   const handleBpmChange = e => {
