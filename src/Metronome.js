@@ -4,18 +4,21 @@ import click1 from './sound-files/click1.wav';
 import click2 from './sound-files/click2.wav';
 
 const Metronome = () => {
+  // Slice of state for the initial values of the metronome
   const [initialValues, setInitialValues] = useState({
     playing: false,
     count: 0,
     bpm: 100,
     beatsPerMeasure: 4
   })
-
-  click1 = new Audio(click1);
-  click2 = new Audio(click2);
+  // Slice of state for audio files
+  const [audio, setAudio] = useState({
+    click1: new Audio (click1),
+    click2: new Audio (click2)
+  })
 
   const startStop = () => {
-    click1.play();
+    audio.click1.play();
   }
 
   // change handler for bpm slider
