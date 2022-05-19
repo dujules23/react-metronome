@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Metronome.css';
+import click1 from './sound-files/click1.wav';
+import click2 from './sound-files/click2.wav';
 
 const Metronome = () => {
   const [initialValues, setInitialValues] = useState({
@@ -8,6 +10,13 @@ const Metronome = () => {
     bpm: 100,
     beatsPerMeasure: 4
   })
+
+  click1 = new Audio(click1);
+  click2 = new Audio(click2);
+
+  const startStop = () => {
+    click1.play();
+  }
 
   // change handler for bpm slider
   const handleBpmChange = e => {
@@ -26,7 +35,7 @@ const Metronome = () => {
           value={initialValues.bpm} 
           onChange={handleBpmChange}/>
       </div>
-      <button>{initialValues.playing ? 'Stop': 'Start'}</button>
+      <button onClick={startStop}>{initialValues.playing ? 'Stop': 'Start'}</button>
     </div>
   )
 }
