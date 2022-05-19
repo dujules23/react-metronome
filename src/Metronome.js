@@ -54,13 +54,25 @@ const Metronome = () => {
     }
   };
 
-
-
   // change handler for bpm slider
   const handleBpmChange = e => {
     const bpm = e.target.value;
-    setInitialValues({bpm});
-  }
+
+    if (initialValues.playing) {
+      // Stop the old timer and start a new one
+      clearInterval(initialValues.timer);
+      initialValues.timer = setInterval(playClick, (60 / bpm) * 1000);
+
+      // Set the new BPM, and reset the beat counter 
+      setInitialValues({
+        count: 0,
+        bpm
+      });
+    } else {
+      // Otherwise just update the BPM
+      setInitialValues({bpm});
+    }
+  };
 
   return(
     <div className="metronome">
